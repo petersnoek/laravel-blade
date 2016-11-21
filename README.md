@@ -15,5 +15,34 @@ Dit is een stappenplan waarin je alle stappen doorloopt om de template engine "L
 - open een commandline en ga naar de map waarin je project staat
 - geef het commando composer install
 - composer gaat nu een nieuwe map aanmaken `vendor` met daarin alle benodigde bestanden
+- maak nieuwe mappen `cache` en `views`
+- plaats in de map views een nieuw bestand `hello.blade.php` met deze inhoud:
+```
+<!doctype html>
+<html>
+<head>
+    <title>GithubScraper</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
 
+{{ $message }}
+
+</body>
+</html>
+```
+- voorzie index.php van de volgende inhoud:
+```
+<?php
+
+// configure blade engine
+require 'vendor/autoload.php';
+use Philo\Blade\Blade;
+$views = __DIR__ . '/views';		
+$cache = __DIR__ . '/cache';		
+$blade = new Blade($views, $cache);
+
+
+echo $blade->view()->make('index')->with('message', 'Hallo wereld')->render();
+```
 
